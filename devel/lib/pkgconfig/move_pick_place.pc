@@ -1,0 +1,8 @@
+prefix=/home/kyungki/workspace/husky_ws/devel
+
+Name: move_pick_place
+Description: Description of move_pick_place
+Version: 0.0.0
+Cflags: -I/home/kyungki/workspace/husky_ws/devel/include -I/home/kyungki/workspace/husky_ws/src/move_pick_place/include/move_pick_place
+Libs: -L${prefix}/lib 
+Requires: message_runtime

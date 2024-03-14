@@ -1,0 +1,8 @@
+prefix=/home/kyungki/workspace/husky_ws/devel
+
+Name: husky_pickplace
+Description: Description of husky_pickplace
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

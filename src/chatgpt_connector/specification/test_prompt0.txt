@@ -1,0 +1,1 @@
+I want the robot to constantly monitor workers while performing wall painting. Wall location is X: 10 and Y: 4. Maximum base speed 1m/s and slowed down speed is 0.5m/s. Give me the sequence of skills used and arguments for each skill. What are the steps for a robot to paint a wall?

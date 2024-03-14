@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<launch>
+
+  <include file="$(find move_pick_place)/launch/world.launch" />
+
+  <include file="$(find move_pick_place)/launch/spawn_husky.launch">
+  </include>
+
+
+  <!-- Universal Robotics Support -->
+  <include file="$(find husky_pickplace)/launch/ur_gazebo_helper.launch"/>
+  <include file="$(find husky_pickplace)/launch/ur_moveit_helper.launch"/>
+
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find move_pick_place)/rviz/husky_arm_amcl.rviz" output="screen"/>
+
+  <include file="$(find move_pick_place)/launch/amcl_demo.launch" >
+  </include>
+
+</launch>

@@ -1,0 +1,82 @@
+# Robot task names and required robot actions 
+| Task              |Description                                   |Sequence of actions in task                                                                              |
+|-----------------------|----------------------------------------------|-------------------------------------------------------------------------------------------------|
+|Wall painting          |Paint interior or exterior walls              |Action 1. Navigate to location, Action 2. perform wall painting                              | 
+
+In a sequence of actions, action 1 and action 2 cannot be performed at the same time. Navigation should be completed to start wall painting
+
+# Unsafe situations and mitigation strategy associated with tasks and actions
+| Potential Hazards               |Description of Situation to Monitor      |Mitigation                                                                                                                                    |
+|---------------------------------|-----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+|Robot base colliding with workers|Robot navigating too fast around workers |Set navigation speed to slow speed (default reduced speed is 1) if a person is in slow speed distance (default distance is 2m), set navigation speed to minimum speed (default minimum speed is 0.1) if a person is in minimum speed distance (default is 1m)|
+|Robot arm  colliding with workers|Robot arm moving too fast around workers |Slow down robot arm movement  and give lighting alarm if a worker is within 2m, stop arm movement and sound alarm if a worker is within 1m    |
+
+# Robot skills matching robot actions
+| Robot action names   |Description                                   | Used skill names and arguments                                                       |
+|----------------------|----------------------------------------------|--------------------------------------------------------------------------------------|
+| Navigation           |Robot base movement toward given XYZ RPY goal | navigateToLocation()                                                                 |
+| Perform wall painting     |Move arm with spray up and down several times | paintWall(int stroke_time)                                                           |
+| Set navigation speed |Set navigation speed                          | setNavigationSpeed(float64 speed)                                                    |
+
+
+# Planned works in room 1
+|Painting and paint stroke times               |Safety instruction                                                                               |
+|----------------------------------------------|-------------------------------------------------------------------------------------------------|
+|location 1 - X Y orientation: {3, 3, 3.14}, 10 strokes    |Since the room is very large, operate at reduced navigation speed of 0.5 if there is a person in 3m, stroke 10 times each location|
+|location 2 - X Y orientation: {-3, -3.14}, 5 strokes    |Since the room is very large, operate at reduced navigation speed of 0.5 if there is a person in 3m, stroke 10 times each location|
+|location 3 - X Y orientation: {3, -3, 3.14}, 10 strokes    |Since the room is very large, operate at reduced navigation speed of 0.5 if there is a person in 3m, stroke 10 times each location| 
+
+# Robot-chatgpt interaction
+- Robot explains the current status of actions and tasks (for example, navigation completed, painting completed) and distance to human workers.
+- Chatgpt explains what the robot can respond to the given situation.
+- chatgpt can call function only in Used skill names and arguments
+- chatgpt can provide only functions called such as navigateToLocation() without further description
+- the robot is required to perform wall painting in all the locations in room 1
+- chatgpt can provide only functions called such as navigateToLocation() without further description.
+- wait for the next command if all the planned works are completed
+- chatgpt response should be only in json
+
+
+## Example Robot prompt and GPT responses
+# example 1
+
+prompt: 
+- robot is in room 1, ready to start working, there is a person in 2m
+response: 
+{
+  "actions": [
+    {
+      "function_called": "setNavigationSpeed",
+      "arguments": [0.5]
+    },
+    {
+      "function_called": "navigateToLocation",
+      "arguments": [3, 3, 3.14]
+    }
+  ]
+}
+
+# example 2
+prompt: robot navigating to 1st location in room 1. a person approached and distance is 3. what should the robot do?
+response: 
+{
+  "actions": [
+    {
+      "function_called": "setNavigationSpeed",
+      "arguments": [0.5]
+    }
+  ]
+}
+
+# example 3
+prompt: robot navigated to 1st location in room 1. what should the robot do?
+response: 
+{
+  "actions": [
+    {
+      "function_called": "paintWall",
+      "arguments": [10]
+    }
+  ]
+}
+

@@ -1,0 +1,19 @@
+# Robot task names and required actions
+| Task Name             |Description                                   |Robot action names                                                                               |
+|-----------------------|----------------------------------------------|-------------------------------------------------------------------------------------------------|
+|Wall painting          |Paint interior or exterior walls              |Navigate to the front of wall to be painted, paint with spray up and down several times          | 
+|Drywall installation   |Install drywall boards over wall frame        |Navigate to drywall storage, pickup one drywall, navigate to installation location, place drywall|
+|Wall frame installation|Install wall frame                            |Navigate to wall frame storage, pickup one frame, navigate to installation location, place frame |
+
+# Unsafe situations and mitigation strategy associated with tasks and actions
+| Potential Hazards               |Description of Situation to Monitor      |Mitigation                                                                                                                                  |
+|---------------------------------|-----------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
+|Robot base colliding with workers|Robot navigating too fast around workers |Slow down base movement and give lighting alarm if a worker is within 2m, stop base movement and sound alarm if a worker is within 1m       |
+|Robot arm  colliding with workers|Robot arm moving too fast around workers |Slow down robot arm movement  and give lighting alarm if a worker is within 2m, stop arm movement and sound alarm if a worker is within 1m  |
+
+# Robot skills matching robot actions
+| Robot action names   |Description                                   | Used skill names and arguments                                                       |
+|----------------------|----------------------------------------------|--------------------------------------------------------------------------------------|
+| Navigation           |Robot base movement toward given XYZ RPY goal | void navigate (string Object or XY location, float Speed, boolean Sound_alarm, boolean Light_alarm) |
+| Monitor workers      |constantly check shortest distance to workers | float shortest_distance ()                                                           |
+| Paint with spray     |Move arm with spray up and down several times | float spary_paint (int repeat_times, speed)                                                           |
